@@ -1,0 +1,50 @@
+<html>
+
+<body>
+	<p>
+		<select id="hourSelect">
+
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+		</select>
+
+		<select id="autoDropDown">
+			<script>
+				var minute=0;
+				for (var i=0; i <=58; i++)
+				{
+					minute++;
+					document.write("<option value=\"" + minute + "\">" + minute + "</option>");
+
+				}
+
+			</script>
+		</select>
+		<select id="amPmSelect">
+			<option value="AM">AM</option>
+			<option value="PM">PM</option>
+
+		</select>
+	</p>
+	<p> Paste the link you want to open: <input type="url" id="alarmSound" required="required"> 	 <br>	
+		<input type="submit" name="submitTime" onClick="showTime()">
+		<script>
+			function showTime(){
+
+
+				var e = document.getElementById("hourSelect");
+				var hour = e.options[e.selectedIndex].value;
+				var e1 = document.getElementById("autoDropDown");
+				var minuteSelected = e1.options[e1.selectedIndex].value;
+				var e2 = document.getElementById("amPmSelect");
+				var AMPM = e2.options[e2.selectedIndex].value;
+				alert(hour +" : "+ minuteSelected + " "+ AMPM)
+
+				var link = document.getElementById("alarmSound").value;
+				window.open(link);
+			}
+		</script>
+	</body>
+	</html>
