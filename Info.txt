@@ -1,0 +1,11 @@
+Welcome to the Alarm App
+
+This is a collaborative project by Ahmed and Praveen
+Alarm 1.0 is made with javascript, html, mongodb, and noSQL
+
+Alarm 1.0 includes...
+
+-user verification system (login and log out)
+-Alarm... Dah!
+-The app remembers the alarm you set. 
+
