@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body onload="startTime()">
+    <div id="txt"></div>
+    <p>
+        <script>
+
+            var today = new Date();
+            var hours = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+
+            var suffix = (hours >= 12)? 'pm' : 'am';
+            hours = (hours > 12)? hours -12 : hours;
+            hours = (hours == '00')? 12 : hours;
+
+            m = checkTime(m);
+            s = checkTime(s);
+
+            function startTime() {
+                var today = new Date();
+                var hours = today.getHours();
+                var m = today.getMinutes();
+                var s = today.getSeconds();
+
+                var suffix = (hours >= 12)? 'pm' : 'am';
+                hours = (hours > 12)? hours -12 : hours;
+                hours = (hours == '00')? 12 : hours;
+
+                m = checkTime(m);
+                s = checkTime(s);
+                document.getElementById('txt').innerHTML =
+                        hours + ":" + m + ":" + s + "\ " + suffix;
+                var t = setTimeout(startTime, 500);
+            }
+            function checkTime(i) {
+                if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+                return i;
+            }
+
+            function showTime(){
+
+
+                var e = document.getElementById("hourSelect");
+                var hour = e.options[e.selectedIndex].value;
+                var e1 = document.getElementById("autoDropDown");
+                var minuteSelected = e1.options[e1.selectedIndex].value;
+                var e2 = document.getElementById("amPmSelect");
+                var AMPM = e2.options[e2.selectedIndex].value;
+
+                if (hour == hours && minuteSelected == m ){
+                    alert("Fashizzle");
+                }
+
+                alert(hour +" : "+ minuteSelected + " "+ AMPM)
+
+                var link = document.getElementById("alarmSound").value;
+                window.open(link);
+            }
+
+        </script>
+    </p>
+
+    <p>
+        <select id="hourSelect">
+
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+        </select>
+        <select id="autoDropDown">
+            <script>
+                var minute=0;
+                for (var i=0; i <=58; i++)
+                {
+                    minute++;
+                    if (minute < 10) {minute = "0" + minute};
+                    document.write("<option value=\"" + minute + "\">" + minute + "</option>");
+
+                }
+
+            </script>
+        </select>
+        <select id="amPmSelect">
+            <option value="AM">AM</option>
+            <option value="PM">PM</option>
+
+        </select>
+    </p>
+
+    <p> Paste the link you want to open: <br /> <input type="url" id="alarmSound" required="required"> 	 <br>
+        <input type="submit" name="submitTime" onClick="showTime()">
+    </p>
+
+
+</body>
+</html>
