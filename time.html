@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+        function myFunction() {
+            var firstName = document.getElementById('firstName');
+            var minutee = document.getElementById('lastName');
+            setTimeout(function(){ window.open("https://youtu.be/pkp7tkeu22I?t=307"); }, 3000);
+        }
+
+        function startTime() {
+            var today = new Date();
+            var hours = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+
+            var suffix = (hours >= 12)? 'pm' : 'am';
+            hours = (hours > 12)? hours -12 : hours;
+            hours = (hours == '00')? 12 : hours;
+
+            m = checkTime(m);
+            s = checkTime(s);
+            document.getElementById('txt').innerHTML =
+                    hours + ":" + m + ":" + s + "\ " + suffix;
+            var t = setTimeout(startTime, 500);
+        }
+        function checkTime(i) {
+            if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+            return i;
+        }
+
+
+
+
+    </script>
+</head>
+
+<body onload="startTime()">
+
+    <div id="txt"></div>
+    <br /> <br />
+    When do you want to wake up?
+    <br /> <br />
+    Hour: <input type="text" id="firstName" />
+    <br /> <br />
+    Minute:  <input type="text" id="lastName" />
+    <br /> <br />
+    <button onclick="submit();" href="javascript:;">Submit</button>
+    <br /><br />
+    <button onclick="myFunction()">Set Timer!</button>
+
+</body>
+</html>
