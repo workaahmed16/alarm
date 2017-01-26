@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+
+    var minutesInFuture = 1;
+
+    var eta_ms = new Date().getTime();
+    eta_ms = eta_ms + minutesInFuture * 1000 * 60;
+
+    document.write(Date.now() + "<br />");
+    document.write(eta_ms + "<br />");
+
+    var result = eta_ms - Date.now();
+    document.write("The Delay: " + result + "<br />" );
+    document.write(result + "<br />");
+    document.write(typeof (result) + "<br />");
+
+    setTimeout(function(){ alert("Hello"); }, result);
+</script>
+
+</body>
+</html>
