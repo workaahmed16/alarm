@@ -9,18 +9,6 @@
     <p>
         <script>
 
-            var today = new Date();
-            var hours = today.getHours();
-            var m = today.getMinutes();
-            var s = today.getSeconds();
-
-            var suffix = (hours >= 12)? 'pm' : 'am';
-            hours = (hours > 12)? hours -12 : hours;
-            hours = (hours == '00')? 12 : hours;
-
-            m = checkTime(m);
-            s = checkTime(s);
-
             function startTime() {
                 var today = new Date();
                 var hours = today.getHours();
@@ -31,19 +19,19 @@
                 hours = (hours > 12)? hours -12 : hours;
                 hours = (hours == '00')? 12 : hours;
 
-                m = checkTime(m);
+                m = checkTime(m);  //Not exactly sure what this does, but it is required
                 s = checkTime(s);
                 document.getElementById('txt').innerHTML =
-                        hours + ":" + m + ":" + s + "\ " + suffix;
+                        hours + ":" + m + "\ " + suffix;
                 var t = setTimeout(startTime, 500);
             }
+
             function checkTime(i) {
                 if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
                 return i;
             }
 
             function showTime(){
-
 
                 var e = document.getElementById("hourSelect");
                 var hour = e.options[e.selectedIndex].value;
@@ -52,14 +40,27 @@
                 var e2 = document.getElementById("amPmSelect");
                 var AMPM = e2.options[e2.selectedIndex].value;
 
-                if (hour == hours && minuteSelected == m ){
-                    alert("Fashizzle");
+                //parseInt cause I can't work with damn Strings
+                hour = parseInt(hour)
+                minuteSelected = parseInt(minuteSelected)
+
+                // Convert standard time to military time.
+                if (AMPM == 'PM' && hour < 12) {
+                    hour = hour + 12;
+                }
+                else if (AMPM == 'AM' && hour == 12) {
+                    hour = hour - 12;
                 }
 
-                alert(hour +" : "+ minuteSelected + " "+ AMPM)
-
+                // Get the link
                 var link = document.getElementById("alarmSound").value;
-                window.open(link);
+
+                // Build a new Date object based on User Selection and get the difference of user generated time and system time
+                var eta_ms = new Date(2017, 0, 26, hour, minuteSelected).getTime();
+                var result = eta_ms - Date.now();
+
+                // Activate Alarm
+                setTimeout(function(){ window.open(link); }, result);
             }
 
         </script>
