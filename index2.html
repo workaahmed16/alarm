@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body onload="startTime()">
+    <div id="txt"></div>
+    <p>
+        <script>
+
+            function startTime() {
+                var today = new Date();
+                var hours = today.getHours();
+                var m = today.getMinutes();
+                var s = today.getSeconds();
+
+                var suffix = (hours >= 12)? 'pm' : 'am';
+                hours = (hours > 12)? hours -12 : hours;
+                hours = (hours == '00')? 12 : hours;
+
+                m = checkTime(m);  //Not exactly sure what this does, but it is required
+                s = checkTime(s);
+                document.getElementById('txt').innerHTML =
+                hours + ":" + m + "\ " + suffix;
+                var t = setTimeout(startTime, 500);
+            }
+
+            function checkTime(i) {
+                if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+                return i;
+            }
+
+            function showTime(){
+
+                var dateInput = document.getElementById('date').value;
+                var dateSelected  = new Date(dateInput);
+
+                var year = dateSelected.getFullYear();
+                var month = dateSelected.getMonth();
+                var day = dateSelected.getDate();
+                day+=1;
+
+                alert("Day" +day + "Month "+month+ "Year "+year);
+
+                var e = document.getElementById("hourSelect");
+                var hour = e.options[e.selectedIndex].value;
+                var e1 = document.getElementById("autoDropDown");
+                var minuteSelected = e1.options[e1.selectedIndex].value;
+                var e2 = document.getElementById("amPmSelect");
+                var AMPM = e2.options[e2.selectedIndex].value;
+
+                //parseInt cause I can't work with damn Strings
+                hour = parseInt(hour)
+                minuteSelected = parseInt(minuteSelected)
+
+                // Convert standard time to military time.
+                if (AMPM == 'PM' && hour < 12) {
+                    hour = hour + 12;
+                }
+                else if (AMPM == 'AM' && hour == 12) {
+                    hour = hour - 12;
+                }
+
+                // Get the link
+                var link = document.getElementById("alarmSound").value;
+
+                // Build a new Date object based on User Selection and get the difference of user generated time and system time
+                var eta_ms = new Date(year, month, day, hour, minuteSelected).getTime(); // Ask the user to provide a date. 
+                var result = eta_ms - Date.now();
+                alert("result: " + result)
+                // Activate Alarm
+                setTimeout(function(){ window.open(link); }, result);
+            }
+
+
+
+        </script> 
+    </p>
+
+    <p>
+        <select id="hourSelect">
+
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+        </select>
+        <select id="autoDropDown">
+            <script>
+                var minute=0;
+                for (var i=0; i <=58; i++)
+                {
+                    minute++;
+                    if (minute < 10) {minute = "0" + minute};
+                    document.write("<option value=\"" + minute + "\">" + minute + "</option>");
+
+                }
+
+            </script>
+        </select>
+        <select id="amPmSelect">
+            <option value="AM">AM</option>
+            <option value="PM">PM</option>
+
+        </select>
+
+    </p>
+    <p>
+        Date: <input type = "date" name="dateOfAlarm" id="date" required = "required">  <!-- Asking for date from user.  -->
+    </p>
+    <script>
+        // var dateInput = document.getElementById('date').value;
+        // var dateSelected  = new Date(dateInput);
+        
+        // var year = dateSelected.getFullYear();
+        // var month = dateSelected.getMonth();
+        // var day = dateSelected.getDate();
+
+    </script>
+
+    <p> Paste the link you want to open: <br /> <input type="url" id="alarmSound" required="required"> 	 <br>
+        <input type="submit" name="submitTime" onClick="showTime()">
+    </p>
+
+
+</body>
+</html>
